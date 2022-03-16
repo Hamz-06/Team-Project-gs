@@ -1,5 +1,7 @@
 <!--PHP runs everytime the page is opened or refreshed-->
 <?php
+
+echo "asad";
 /*Checks to see if fname and etc.. exist from the the form. If it exists it
 will assign the variables */
 if (
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   /*this variable checks to see how many times this loop is run. This is used to make sure 
   data is added once the username row is at the end*/
-  $startLoop=1;
+  $startCheck=1;
   while ($row = $getUsername->fetch_assoc()) { //goes through usernames 
   
     //if username is detected
@@ -105,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <!---create user (onsubmit- javascript function)-->
                 <div class="modal-body">
-                  <form method="post" id="createUser" onsubmit="return checkCreateUserAdmin()" action="admin.php">
+                  <form method="post" id="createUser" onsubmit="return checkCreateUserAdmin()" action="adminpage.php">
      
                     <div>
                       <label for="fname">Enter First Name:</label>
