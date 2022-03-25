@@ -58,9 +58,39 @@ function checkCreateUserAdmin(){
         $("unameTag").style.display = "none"; // remove error message
         usernameValid = true; // set boolean variable to true
     }
+
+    var roleValid = false; // set boolean value to false
+    if (role == "") { // if empty then replace error message text with "Please fill in this field"
+        $("roleTag").style.display = "inline";
+        $("roleTag").innerHTML = "Please fill in this field.";
+    }else if (!role.match(name_valid)) {  //letters only 
+
+        $("roleTag").style.display = "inline";
+        $("roleTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("roleTag").style.display = "none"; // remove error message
+        roleValid = true; // set boolean variable to true
+    }
+
+    var passwordValid = false; // set boolean value to false
+    if (password == "") { // if empty then replace error message text with "Please fill in this field"
+        $("pwordTag").style.display = "inline";
+        $("pwordTag").innerHTML = "Please fill in this field.";
+    }else if (!password.match(name_valid)) {  //letters only 
+
+        $("pwordTag").style.display = "inline";
+        $("pwordTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("pwordTag").style.display = "none"; // remove error message
+        passwordValid = true; // set boolean variable to true
+    }
+
+
     
     // if all boolean variables are true then return true 
-    if (firstnameValid && secondnameValid && usernameValid) {
+    if (firstnameValid && secondnameValid && usernameValid && passwordValid && roleValid) {
         
         return true;            
     }else{
