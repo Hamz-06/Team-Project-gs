@@ -97,4 +97,8 @@ h2 {
 
 .spacer{
     margin-bottom: 30px;
-  }
+}
+
+#editbutton{
+    color: #1DB100;
+}

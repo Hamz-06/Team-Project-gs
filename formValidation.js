@@ -2,9 +2,10 @@
 function $(id) {
     return document.getElementById(id);
 }
-console.log("JAvascript runnig ");
+
 
 var name_valid = /^[A-Za-z]+$/;  //regex that makes sure data is valid
+
 
 function checkCreateUserAdmin(){
     //gets data from form 
