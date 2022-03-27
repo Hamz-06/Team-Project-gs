@@ -9,7 +9,6 @@ if (isset($_POST['addUserSubmit'])) {
 }
 
 if (isset($_POST['editUserSubmit'])) {
-  addUser();
 }
 
 
@@ -83,15 +82,17 @@ if (isset($_POST['editUserSubmit'])) {
               //create array for edit button 
 
               $editButtonArray = array();
-              $initial = 0;
-              while ($row = $getUser->fetch_assoc()) { //goes through usernames 
+              //loop through users and assign a edit button to each user 
+              for ($i = 0; $i < $numUser; $i++) {
 
+                $row = $getUser->fetch_assoc();
                 array_push($editButtonArray, '<td><button type="button" class="bi-pencil-square" id="editbutton" data-bs-toggle="modal" data-bs-target="#exampleModal2"> </button></td>');
-                echo "<tr><td>" . $row["StaffID"] . "</td><td>" . $row["Fname"] . "</td><td>" . $row["Sname"] . "</td><td>" . $row["Roles"] . "</td><td>" . $row["Username"] . "</td><td>" . $row["Password"] . "</td><td>" . $editButtonArray[$initial] .  "</td></tr>";
-                $initial++;
+                echo "<tr><td>" . $row["StaffID"] . "</td><td>" . $row["Fname"] . "</td><td>" . $row["Sname"] . "</td><td>" . $row["Roles"] . "</td><td>" . $row["Username"] . "</td><td>" . $row["Password"] . "</td><td>" . $editButtonArray[$i] .  "</td></tr>";
               }
 
               ?>
+
+
             </tr>
 
           </tbody>
@@ -110,25 +111,25 @@ if (isset($_POST['editUserSubmit'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form method="post" id="createUser" onsubmit="return checkCreateUserAdmin()" action="adminpage.php">
+                <form method="post" id="editUser" onsubmit="return checkEditUserAdmin()" action="adminpage.php">
 
                   <div class="spacer">
 
-                    <small id="fnameTag"></small>
-                    <input type="text" name="fname" class="form-control" id="fname" placeholder="Enter First Name" value = "Isi" maxlength="15">
+                    <small id="editFnameTag"></small>
+                    <input type="text" name="editFname" class="form-control" id="editFname" placeholder="Enter First Name" value="sdsd" maxlength="15">
 
                   </div>
 
                   <div class="spacer">
 
-                    <small id="snameTag"></small>
-                    <input type="text" name="sname" class="form-control" id="sname" placeholder="Enter Surname"  maxlength="15">
+                    <small id="editSnameTag"></small>
+                    <input type="text" name="editSname" class="form-control" id="editSname" placeholder="Enter Surname" maxlength="15">
 
                   </div>
 
                   <div class="spacer">
-                    <small id="roleTag"></small>
-                    <select class="form-control" name="role" id="role">
+                    <small id="editRoleTag"></small>
+                    <select class="form-control" name="editRole" id="editRole">
                       <option>Choose a Role...</option>
                       <option>Receptionist</option>
                       <option>Mechanic</option>
@@ -139,14 +140,14 @@ if (isset($_POST['editUserSubmit'])) {
 
                   </div>
                   <div class="spacer">
-                    <small id="unameTag"></small>
-                    <input type="text" name="uname" class="form-control" id="uname" placeholder="Enter Username" maxlength="15">
-                    <small id="unameTag"></small>
+                    <small id="editUnameTag"></small>
+                    <input type="text" name="editUname" class="form-control" id="editUname" placeholder="Enter Username" maxlength="15">
+
                   </div>
 
                   <div class="spacer">
-                    <small id="pwordTag"></small>
-                    <input type="text" name="pword" class="form-control" id="pword" placeholder="Enter Password" maxlength="15">
+                    <small id="editPwordTag"></small>
+                    <input type="text" name="editPword" class="form-control" id="editPword" placeholder="Enter Password" maxlength="15">
                   </div>
 
 

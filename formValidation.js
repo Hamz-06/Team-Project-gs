@@ -36,7 +36,7 @@ function checkCreateUserAdmin(){
     if (secondName == "") { // if empty then replace error message text with "Please fill in this field"
         $("snameTag").style.display = "inline";
         $("snameTag").innerHTML = "Please fill in this field.";
-    }else if (!firstName.match(name_valid)) {  //letters only 
+    }else if (!secondName.match(name_valid)) {  //letters only 
 
         $("snameTag").style.display = "inline";
         $("snameTag").innerHTML = "Letters Only.";
@@ -50,10 +50,10 @@ function checkCreateUserAdmin(){
     if (userName == "") { // if empty then replace error message text with "Please fill in this field"
         $("unameTag").style.display = "inline";
         $("unameTag").innerHTML = "Please fill in this field.";
-    }else if (!firstName.match(name_valid)) {  //letters only 
+    }else if (!userName.match(name_valid)) {  //letters only 
 
         $("unameTag").style.display = "inline";
-        $("snameTag").innerHTML = "Letters Only.";
+        $("unameTag").innerHTML = "Letters Only.";
 
     } else {
         $("unameTag").style.display = "none"; // remove error message
@@ -98,6 +98,99 @@ function checkCreateUserAdmin(){
         return false;
     } 
 }
+///////////////////
+function checkEditUserAdmin() {
+    //gets data from form 
+    console.log("ewfef");
+    const editFirstName = $("editFname").value.trim();
+    const editSecondName = $("editSname").value.trim();
+    const editRole = $("editRole").value.trim();
+    const editUserName = $("editUname").value.trim();
+    const editPassword = $("editPword").value.trim();
+
+    // editFirstName validation
+    var editFnameValid = false; // set boolean value to false
+    if (editFirstName == "") { // if empty then replace error message text with "Please fill in this field"
+        $("editFnameTag").style.display = "inline";
+        $("editFnameTag").innerHTML = "Please fill in this field.";
+    } else if (!editFirstName.match(name_valid)) {  //letters only 
+
+        $("editFnameTag").style.display = "inline";
+        $("editFnameTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("editFnameTag").style.display = "none"; // remove error message
+        editFnameValid = true; // set boolean variable to true
+    }
+
+    // editSecondName validation
+    var editSecondNameValid = false; // set boolean value to false
+    if (editSecondName == "") { // if empty then replace error message text with "Please fill in this field"
+        $("editSnameTag").style.display = "inline";
+        $("editSnameTag").innerHTML = "Please fill in this field.";
+    } else if (!editSecondName.match(name_valid)) {  //letters only 
+
+        $("editSnameTag").style.display = "inline";
+        $("editSnameTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("editSnameTag").style.display = "none"; // remove error message
+        editSecondNameValid = true; // set boolean variable to true
+    }
+
+    var editUsernameValid = false; // set boolean value to false
+    if (editUserName == "") { // if empty then replace error message text with "Please fill in this field"
+        $("editUnameTag").style.display = "inline";
+        $("editUnameTag").innerHTML = "Please fill in this field.";
+    } else if (!editUserName.match(name_valid)) {  //letters only 
+
+        $("editUnameTag").style.display = "inline";
+        $("editUnameTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("editUnameTag").style.display = "none"; // remove error message
+        editUsernameValid = true; // set boolean variable to true
+    }
+
+    var editRoleValid = false; // set boolean value to false
+    if (editRole == "") { // if empty then replace error message text with "Please fill in this field"
+        $("editRoleTag").style.display = "inline";
+        $("editRoleTag").innerHTML = "Please fill in this field.";
+    } else if (!editRole.match(name_valid)) {  //letters only 
+
+        $("editRoleTag").style.display = "inline";
+        $("editRoleTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("editRoleTag").style.display = "none"; // remove error message
+        editRoleValid = true; // set boolean variable to true
+    }
+
+    var editPasswordValid = false; // set boolean value to false
+    if (editPassword == "") { // if empty then replace error message text with "Please fill in this field"
+        $("editPwordTag").style.display = "inline";
+        $("editPwordTag").innerHTML = "Please fill in this field.";
+    } else if (!editPassword.match(name_valid)) {  //letters only 
+
+        $("editPwordTag").style.display = "inline";
+        $("editPwordTag").innerHTML = "Letters Only.";
+
+    } else {
+        $("editPwordTag").style.display = "none"; // remove error message
+        editPasswordValid = true; // set boolean variable to true
+    }
+
+
+
+    // if all boolean variables are true then return true 
+    if (editFnameValid && editSecondNameValid && editUsernameValid && editPasswordValid && editRoleValid) {
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 function checkLogin(){
     const uname = $("uname").value.trim();
