@@ -101,7 +101,7 @@ function checkCreateUserAdmin(){
 ///////////////////
 function checkEditUserAdmin() {
     //gets data from form 
-    console.log("ewfef");
+    
     const editFirstName = $("editFname").value.trim();
     const editSecondName = $("editSname").value.trim();
     const editRole = $("editRole").value.trim();

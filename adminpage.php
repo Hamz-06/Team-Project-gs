@@ -3,19 +3,15 @@
 //add function 
 include 'phpfunctions.php';
 
-//run if add user button is clicked 
+//run if add user button is clicked (Form button)
 if (isset($_POST['addUserSubmit'])) {
+  echo "<script>console.log('qwe')</script>";
+
   addUser();
 }
 
-if (isset($_POST['editUserSubmit'])) {
-}
-
-
 
 ?>
-
-
 
 
 
@@ -30,7 +26,7 @@ if (isset($_POST['editUserSubmit'])) {
 
 
 <head>
-  <title>Mechanic - GARITS</title>
+  <title>Administrator - GARITS</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link href="style.css" rel="stylesheet">
@@ -38,7 +34,7 @@ if (isset($_POST['editUserSubmit'])) {
 
 <body>
   <nav>
-    <h1>Mechanic</h1>
+    <h1>Administrator</h1>
   </nav>
 
 
@@ -52,7 +48,7 @@ if (isset($_POST['editUserSubmit'])) {
 
       <!-- Subtitle -->
       <div class="line text-left">
-        <h3>Edit User</h3>
+        <h3>View/ Edit User</h3>
       </div>
 
 
@@ -79,17 +75,28 @@ if (isset($_POST['editUserSubmit'])) {
 
               // get number of users to add to edit button
               $numUser = mysqli_num_rows($getUser);
-              //create array for edit button 
 
+              //create array for edit button 
               $editButtonArray = array();
-              //loop through users and assign a edit button to each user 
+
+              //loop through users and assign a edit button/ form to each user 
               for ($i = 0; $i < $numUser; $i++) {
 
                 $row = $getUser->fetch_assoc();
-                array_push($editButtonArray, '<td><button type="button" class="bi-pencil-square" id="editbutton" data-bs-toggle="modal" data-bs-target="#exampleModal2"> </button></td>');
+                $id = $row["StaffID"];
+
+                $buttonForm = '<form action="editUserPage.php?>" method="get">
+                <input type="hidden" name ="buttonID" value ='.$id.'>
+                <button type="submit" class="bi-pencil-square" id="editbutton"> </button>
+                </form>';
+                //push button to array 
+                array_push($editButtonArray, $buttonForm);
+
+                //add to html code 
                 echo "<tr><td>" . $row["StaffID"] . "</td><td>" . $row["Fname"] . "</td><td>" . $row["Sname"] . "</td><td>" . $row["Roles"] . "</td><td>" . $row["Username"] . "</td><td>" . $row["Password"] . "</td><td>" . $editButtonArray[$i] .  "</td></tr>";
               }
 
+              $db->close();
               ?>
 
 
@@ -100,73 +107,15 @@ if (isset($_POST['editUserSubmit'])) {
         </table>
 
 
-        <!--Modal num2 (USED TO EDIT USER - Similar to create user) -->
-
-        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form method="post" id="editUser" onsubmit="return checkEditUserAdmin()" action="adminpage.php">
-
-                  <div class="spacer">
-
-                    <small id="editFnameTag"></small>
-                    <input type="text" name="editFname" class="form-control" id="editFname" placeholder="Enter First Name" value="sdsd" maxlength="15">
-
-                  </div>
-
-                  <div class="spacer">
-
-                    <small id="editSnameTag"></small>
-                    <input type="text" name="editSname" class="form-control" id="editSname" placeholder="Enter Surname" maxlength="15">
-
-                  </div>
-
-                  <div class="spacer">
-                    <small id="editRoleTag"></small>
-                    <select class="form-control" name="editRole" id="editRole">
-                      <option>Choose a Role...</option>
-                      <option>Receptionist</option>
-                      <option>Mechanic</option>
-                      <option>Foreperson</option>
-                      <option>Franchisee</option>
-                      <option>Administrator</option>
-                    </select>
-
-                  </div>
-                  <div class="spacer">
-                    <small id="editUnameTag"></small>
-                    <input type="text" name="editUname" class="form-control" id="editUname" placeholder="Enter Username" maxlength="15">
-
-                  </div>
-
-                  <div class="spacer">
-                    <small id="editPwordTag"></small>
-                    <input type="text" name="editPword" class="form-control" id="editPword" placeholder="Enter Password" maxlength="15">
-                  </div>
 
 
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="editUserSubmit">Save changes</button>
-              </div>
 
-              </form>
-            </div>
 
-          </div>
-        </div>
 
 
         <!-- Button trigger modal THIS IS START OF ADD USER -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Launch demo modal
+          Create User
         </button>
 
         <!-- Modal -->
@@ -198,7 +147,7 @@ if (isset($_POST['editUserSubmit'])) {
                   <div class="spacer">
                     <small id="roleTag"></small>
                     <select class="form-control" name="role" id="role">
-                      <option>Choose a Role...</option>
+                      <option value="" selected disabled hidden>Please select an option...</option>
                       <option>Receptionist</option>
                       <option>Mechanic</option>
                       <option>Foreperson</option>
@@ -222,7 +171,7 @@ if (isset($_POST['editUserSubmit'])) {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="addUserSubmit">Save changes</button>
+                <button type="submit" class="btn btn-primary" name="addUserSubmit">Add User</button>
               </div>
 
               </form>
@@ -246,7 +195,7 @@ if (isset($_POST['editUserSubmit'])) {
 
       <div class="line">
         <table class="table">
-          <button type="button" class="btn btn-primary btn-lg">Large button</button>
+          <button type="button" class="btn btn-primary btn-lg">Save database </button>
 
         </table>
       </div>
@@ -254,7 +203,7 @@ if (isset($_POST['editUserSubmit'])) {
       <div class="line">
         <table class="table">
 
-          <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+          <button type="button" class="btn btn-secondary btn-lg">Load database</button>
         </table>
       </div>
 
