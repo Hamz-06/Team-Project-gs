@@ -10,6 +10,17 @@ if (isset($_POST['addUserSubmit'])) {
   addUser();
 }
 
+if (isset($get['backupbtn'])) {
+  echo "<script>console.log('qwe')</script>";
+
+  
+}
+if (isset($get['loadbtn'])) {
+  echo "<script>console.log('qwe')</script>";
+
+  
+}
+
 
 ?>
 
@@ -195,15 +206,22 @@ if (isset($_POST['addUserSubmit'])) {
 
       <div class="line">
         <table class="table">
-          <button type="button" class="btn btn-primary btn-lg">Save database </button>
+          <form method="get" action="backup.php" name ="backupbtn">
+
+            <button type="submit" class="btn btn-primary btn-lg">Save database </button>
+
+          </form>
 
         </table>
       </div>
 
       <div class="line">
         <table class="table">
+        <form method="get" action="restore.php" name ="loadbtn">
 
-          <button type="button" class="btn btn-secondary btn-lg">Load database</button>
+          <button type="submit" class="btn btn-secondary btn-lg">Load database</button>
+
+        </form>
         </table>
       </div>
 

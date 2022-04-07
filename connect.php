@@ -4,8 +4,6 @@
     if ($db->connect_errno) {
         printf("Connection failed: %s\n", $db->connect_error);
         exit();
-    } else {
-        echo "Database connected successfully!";
     } 
 
 ?>
