@@ -13,6 +13,9 @@ function addUser()
         $role = $_POST['role'];
         $uname = $_POST['uname'];
         $pword = $_POST['pword'];
+        //mechanic only 
+        $hourlyRate = $_POST['rate'];
+
     }
     /*Checks to see if a post request was made (usually from form) */
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -24,14 +27,13 @@ function addUser()
         //gets the number of usernames  
         $numRows = mysqli_num_rows($getUsername);
 
-        /*this variable checks to see how many times this loop is run. This is used to make sure 
-        data is added once the username row is at the end*/
+        /*runs a loop to check for duplicate user, if false enter data */
 
 
 
         if ($numRows == 0) {
-            $insertUserName = "INSERT INTO `Staff` (`StaffID`, `Fname`, `Sname`, `Roles`, `Username`, `Password`) 
-            VALUES (NULL, '$fname', '$sname', '$role', '$uname', '$pword')";
+            $insertUserName = "INSERT INTO `Staff` (`StaffID`, `Fname`, `Sname`, `Roles`, `Username`, `Password`, `hourlyRate`) 
+            VALUES (NULL, '$fname', '$sname', '$role', '$uname', '$pword', '$hourlyRate')";
             $db->query($insertUserName);
         }
 
@@ -46,8 +48,8 @@ function addUser()
             } else if ($row['Username'] != $uname && $i == $numRows - 1) {  //adds one user at the end of the loop(This is to prevent multiple data entries)
 
                 //insert userdetails into sql
-                $insertUserName = "INSERT INTO `Staff` (`StaffID`, `Fname`, `Sname`, `Roles`, `Username`, `Password`) 
-                VALUES (NULL, '$fname', '$sname', '$role', '$uname', '$pword')";
+                $insertUserName = "INSERT INTO `Staff` (`StaffID`, `Fname`, `Sname`, `Roles`, `Username`, `Password`,`hourlyRate`) 
+                VALUES (NULL, '$fname', '$sname', '$role', '$uname', '$pword', '$hourlyRate')";
 
                 $db->query($insertUserName);
             }
@@ -73,6 +75,8 @@ function editUser()
         $editedrole = $_POST['editRole'];
         $editeduname = $_POST['editUname'];
         $editedpword = $_POST['editPword'];
+        //hourly rate mechanic optional
+        $editedrate = $_POST['editRate'];
 
         echo $editedfname;
         echo $editedpword;
@@ -83,7 +87,7 @@ function editUser()
     /*Checks to see if a post request was made (usually from form) */
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $sqlEditUser = "UPDATE `Staff` SET `Fname` = '$editedfname', `Sname` = '$editedsname', `Roles` = '$editedrole', `Username` = '$editeduname', `Password`='$editedpword' WHERE `StaffID` = '$userID'";
+        $sqlEditUser = "UPDATE `Staff` SET `Fname` = '$editedfname', `Sname` = '$editedsname', `Roles` = '$editedrole', `Username` = '$editeduname', `Password`='$editedpword', `hourlyRate`='$editedrate' WHERE `StaffID` = '$userID'";
 
         $db->query($sqlEditUser);
         
@@ -94,20 +98,11 @@ function editUser()
         window.location.replace('../adminpage.php');
         </script>";
         
-       
-        
+
     }
         
-    
 
 
 }
-
-
-
-
-
-
-
 
 ?>

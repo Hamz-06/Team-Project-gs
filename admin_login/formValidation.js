@@ -5,7 +5,7 @@ function $(id) {
 
 
 var name_valid = /^[A-Za-z]+$/;  //regex that makes sure data is valid
-
+var float_valid = /^[+-]?([0-9]*[.])?[0-9]+/;
 
 function checkCreateUserAdmin(){
     //gets data from form 
@@ -15,6 +15,8 @@ function checkCreateUserAdmin(){
     const role = $("role").value.trim();
     const userName = $("uname").value.trim();
     const password = $("pword").value.trim();
+    //hourly rate
+    const hourlyRate = $("rate").value.trim(); 
     
     // firstname validation
     var firstnameValid = false; // set boolean value to false
@@ -61,6 +63,8 @@ function checkCreateUserAdmin(){
     }
 
     var roleValid = false; // set boolean value to false
+
+    console.log(role);
     if (role == "") { // if empty then replace error message text with "Please fill in this field"
         $("roleTag").style.display = "inline";
         $("roleTag").innerHTML = "Please fill in this field.";
@@ -89,15 +93,69 @@ function checkCreateUserAdmin(){
     }
 
 
+    //check hourly rate if role is mechanic 
+    
+    function checkHourlyRate(){
+        //if mechanic - > return triue 
+        switch(role){
+            case "Mechanic":
+                //if empty
+                if (hourlyRate==""){
+                    $("rateTag").style.display = "inline";
+                    $("rateTag").innerHTML = "Please fill in this field.";
+                    return false;
+                }else if(!hourlyRate.match(float_valid)){
+
+                    $("rateTag").style.display = "inline";
+                    $("rateTag").innerHTML = "Incorrect format";
+                    return false;
+                }else{
+                    $("rateTag").style.display = "none";
+                    
+                    return true;
+                }
+            
+            default:
+                return true;
+                
+        }
+
+        //else -> return false 
+    }
+
+
+
     
     // if all boolean variables are true then return true 
-    if (firstnameValid && secondnameValid && usernameValid && passwordValid && roleValid) {
+    if (firstnameValid && secondnameValid && usernameValid && passwordValid && roleValid && checkHourlyRate()) {
         
         return true;            
     }else{
         return false;
     } 
 }
+
+///////////////////////////
+//Allow hourly rate to be displayed if the user selects mecahnic as a role 
+
+function displayHourlyRate(valOfRole){
+    if (valOfRole.value=="Mechanic"){
+        $("rateDivID").style.display="block";
+        
+
+    }else{
+        $("rateDivID").style.display="none";
+    }
+ 
+}
+
+//display edited hourly rate div box
+function displayEditedHourlyRate(){
+
+    document.getElementById('editRateBox').style.display ='block';
+}
+
+
 ///////////////////
 function checkEditUserAdmin() {
     //gets data from form 
@@ -107,6 +165,8 @@ function checkEditUserAdmin() {
     const editRole = $("editRole").value.trim();
     const editUserName = $("editUname").value.trim();
     const editPassword = $("editPword").value.trim();
+    //mechanic 
+    const editHourlyRate = $("editRate").value.trim();
 
     // editFirstName validation
     var editFnameValid = false; // set boolean value to false
@@ -180,10 +240,37 @@ function checkEditUserAdmin() {
         editPasswordValid = true; // set boolean variable to true
     }
 
+    
+    //optional mechanic hourly rate
+    function checkEditedHourlyRate(){
+        switch(editRole){
+            case "Mechanic":
+                //if empty
+                if (editHourlyRate==""){
+                    $("editUserTag").style.display = "inline";
+                    $("editUserTag").innerHTML = "Please fill in this field.";
+                    return false;
+                }else if(!editHourlyRate.match(float_valid)){
+
+                    $("editUserTag").style.display = "inline";
+                    $("editUserTag").innerHTML = "Incorrect format";
+                    return false;
+                }else{
+                    $("editUserTag").style.display = "none";
+                    
+                    return true;
+                }
+            
+            default:
+                return true;
+                
+        }
+    }
+
 
 
     // if all boolean variables are true then return true 
-    if (editFnameValid && editSecondNameValid && editUsernameValid && editPasswordValid && editRoleValid) {
+    if (editFnameValid && editSecondNameValid && editUsernameValid && editPasswordValid && editRoleValid && checkEditedHourlyRate()) {
 
         return true;
     } else {

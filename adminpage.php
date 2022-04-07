@@ -5,21 +5,12 @@ include 'admin_login/phpfunctions.php';
 
 //run if add user button is clicked (Form button)
 if (isset($_POST['addUserSubmit'])) {
-  echo "<script>console.log('qwe')</script>";
+  echo "<script>console.log('addUserButton clicked 1.3')</script>";
 
   addUser();
 }
 
-if (isset($get['backupbtn'])) {
-  echo "<script>console.log('qwe')</script>";
 
-  
-}
-if (isset($get['loadbtn'])) {
-  echo "<script>console.log('qwe')</script>";
-
-  
-}
 
 
 ?>
@@ -157,10 +148,11 @@ if (isset($get['loadbtn'])) {
 
                   <div class="spacer">
                     <small id="roleTag"></small>
-                    <select class="form-control" name="role" id="role">
+                    <!-- call javascript function to enable hourly rate div -->
+                    <select class="form-control" name="role" id="role" onchange="displayHourlyRate(this)">
                       <option value="" selected disabled hidden>Please select an option...</option>
                       <option>Receptionist</option>
-                      <option>Mechanic</option>
+                      <option value ="Mechanic">Mechanic</option>
                       <option>Foreperson</option>
                       <option>Franchisee</option>
                       <option>Administrator</option>
@@ -176,6 +168,12 @@ if (isset($get['loadbtn'])) {
                   <div class="spacer">
                     <small id="pwordTag"></small>
                     <input type="text" name="pword" class="form-control" id="pword" placeholder="Enter Password" maxlength="15">
+                  </div>
+                  
+                  <!-- input field will only display if mechanic page is selected -->
+                  <div class="spacer" style="display: none;" id="rateDivID">
+                    <small id="rateTag"></small>
+                    <input type="text" name="rate" class="form-control" id="rate" placeholder="Enter Hourly Rate" maxlength="15">
                   </div>
 
 

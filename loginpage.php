@@ -1,6 +1,6 @@
 <!--PHP runs everytime the page is opened or refreshed-->
 <?php
-include 'connect.php';
+include 'admin_login/connect.php';
 /*Checks to see if fname and etc.. exist from the the form. If it exists it
 will assign the variables */
 if (isset($_POST['uname']) && isset($_POST['pword'])) {
@@ -32,11 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             switch ($row["Roles"]) {
                 case 'Receptionist':
                     // redirect to this page
+                    header("location: receptionPage.php");
 
                     break;
                 case 'Administrator':
                     // redirect to this page
-                    header("Location: ../adminpage.php");
+                    header("Location: adminpage.php");
                     break;
                 default:
                     echo "JUST INCASE";

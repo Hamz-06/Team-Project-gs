@@ -11,7 +11,7 @@ include 'phpfunctions.php';
         
         $id = $_GET['buttonID'];
         echo $id;
-        $getOneUser =  $db->query("SELECT StaffID, Fname, Sname, Roles, Username, Password FROM `Staff` WHERE StaffID=$id");
+        $getOneUser =  $db->query("SELECT StaffID, Fname, Sname, Roles, Username, Password, hourlyRate FROM `Staff` WHERE StaffID=$id");
         $getOneUser = $getOneUser->fetch_assoc();
     } else if(isset($_POST['editUserSubmit'])){ //should refresh once user clicks submit
         
@@ -20,6 +20,8 @@ include 'phpfunctions.php';
     }else{
         header('location: ../adminpage.php');
     }
+  
+
 
 $db->close();
 
@@ -97,6 +99,13 @@ $db->close();
                         <small id="editPwordTag"></small>
                         <input type="text" name="editPword" class="form-control" id="editPword" placeholder="Enter Password" value="<?php echo $getOneUser["Password"] ?>" maxlength="15">
                     </div>
+                    <!-- hourly rate, only mechanic should see this visible  -->
+                 
+
+                    <div class="spacer" id="editRateBox"  <?php if ($getOneUser["Roles"]==='Mechanic'){echo "style='display:block'";}else{echo "style='display : none'";}?>>   
+                        <small id="editUserTag"></small>
+                        <input type="text" name="editRate" class="form-control" id="editRate" placeholder="Enter hourly Rate" value="<?php echo $getOneUser["hourlyRate"] ?>" maxlength="15">
+                    </div>
 
                     <div class="modal-footer">
 
@@ -104,7 +113,6 @@ $db->close();
                             <button class="btn btn-primary">Go back</button>
                         </a> 
             
-
                         <button type="submit" class="btn btn-primary" name="editUserSubmit">Edit user</button>
 
                     </div>
