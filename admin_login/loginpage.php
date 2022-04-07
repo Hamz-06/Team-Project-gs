@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     break;
                 case 'Administrator':
                     // redirect to this page
-                    header("Location: adminpage.php");
+                    header("Location: ../adminpage.php");
                     break;
                 default:
                     echo "JUST INCASE";

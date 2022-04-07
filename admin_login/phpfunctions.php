@@ -91,7 +91,7 @@ function editUser()
         $db->close();
         echo "<script>
         alert('User has been edited');
-        window.location.replace('adminpage.php');
+        window.location.replace('../adminpage.php');
         </script>";
         
        

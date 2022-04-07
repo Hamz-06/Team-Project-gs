@@ -18,7 +18,7 @@ include 'phpfunctions.php';
         editUser();
        
     }else{
-        header('location: adminpage.php');
+        header('location: ../adminpage.php');
     }
 
 $db->close();
@@ -100,7 +100,7 @@ $db->close();
 
                     <div class="modal-footer">
 
-                        <a href="adminpage.php"> 
+                        <a href="../adminpage.php"> 
                             <button class="btn btn-primary">Go back</button>
                         </a> 
             
