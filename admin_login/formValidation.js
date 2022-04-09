@@ -136,16 +136,32 @@ function checkCreateUserAdmin(){
 }
 
 ///////////////////////////
-//Allow hourly rate to be displayed if the user selects mecahnic as a role 
+//Allow hourly rate to be displayed if the user selects mecahnic/foreperson as a role 
 
 function displayHourlyRate(valOfRole){
-    if (valOfRole.value=="Mechanic"){
+    console.log(valOfRole.value);
+  
+    if (valOfRole.value=="Mechanic" || valOfRole.value=="Foreperson"){
         $("rateDivID").style.display="block";
+        //set default value of mechahic and foreperson 
+        if (valOfRole.value=="Mechanic"){
+            $("rate").value = 105;
+        }else{
+            $("rate").value = 125;
+        }
+
+        
+
         
 
     }else{
         $("rateDivID").style.display="none";
+        
     }
+
+
+
+
  
 }
 

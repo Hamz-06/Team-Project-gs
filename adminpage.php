@@ -153,7 +153,7 @@ if (isset($_POST['addUserSubmit'])) {
                       <option value="" selected disabled hidden>Please select an option...</option>
                       <option>Receptionist</option>
                       <option value ="Mechanic">Mechanic</option>
-                      <option>Foreperson</option>
+                      <option value ="Foreperson">Foreperson</option>
                       <option>Franchisee</option>
                       <option>Administrator</option>
                     </select>

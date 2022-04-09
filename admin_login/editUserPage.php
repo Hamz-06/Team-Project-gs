@@ -99,10 +99,9 @@ $db->close();
                         <small id="editPwordTag"></small>
                         <input type="text" name="editPword" class="form-control" id="editPword" placeholder="Enter Password" value="<?php echo $getOneUser["Password"] ?>" maxlength="15">
                     </div>
-                    <!-- hourly rate, only mechanic should see this visible  -->
-                 
-
-                    <div class="spacer" id="editRateBox"  <?php if ($getOneUser["Roles"]==='Mechanic'){echo "style='display:block'";}else{echo "style='display : none'";}?>>   
+                    <!-- hourly rate, only mechanic and foreperson should see this visible  -->
+                
+                    <div class="spacer" id="editRateBox"  <?php if ($getOneUser["Roles"]==='Mechanic'||$getOneUser["Roles"]==='Foreperson'){echo "style='display:block'";}else{echo "style='display : none'";}?>>   
                         <small id="editUserTag"></small>
                         <input type="text" name="editRate" class="form-control" id="editRate" placeholder="Enter hourly Rate" value="<?php echo $getOneUser["hourlyRate"] ?>" maxlength="15">
                     </div>

@@ -7,9 +7,6 @@
     $tables = false;
     $backup_name = false;
 
-
-
-
     $db->select_db($DbName);
     $db->query("SET NAMES 'utf8'");
 
