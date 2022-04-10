@@ -5,11 +5,33 @@ include 'admin_login/phpfunctions.php';
 
 //run if add user button is clicked (Form button)
 if (isset($_POST['addUserSubmit'])) {
-  echo "<script>console.log('addUserButton clicked 1.3')</script>";
+  echo "<script>console.log('add user button clicked')</script>";
 
   addUser();
 }
 
+//redirect to backup new tab
+if (isset($_POST['loadbtn'])) {
+  echo "<script>console.log('load button clicked')</script>";
+  echo '
+<script>
+
+  window.open("http://localhost/phpmyadmin/index.php?route=/database/import&db=garit_system");
+
+</script>';
+  
+}
+//redirect to loadnewnew tab
+if (isset($_POST['backupbtn'])) {
+  echo "<script>console.log('backupbutton')</script>";
+  echo '
+<script>
+
+  window.open("http://localhost/phpmyadmin/index.php?route=/database/export&db=garit_system");
+
+</script>';
+  
+}
 
 
 
@@ -204,9 +226,9 @@ if (isset($_POST['addUserSubmit'])) {
 
       <div class="line">
         <table class="table">
-          <form method="get" action="admin_login/backup.php" name ="backupbtn">
+          <form method="post">
 
-            <button type="submit" class="btn btn-primary btn-lg">Save database </button>
+            <button type="submit" class="btn btn-primary btn-lg" name ="backupbtn">Save database </button>
 
           </form>
 
@@ -215,9 +237,9 @@ if (isset($_POST['addUserSubmit'])) {
 
       <div class="line">
         <table class="table">
-        <form method="get" action="admin_login/restore.php" name ="loadbtn">
+        <form method="post">
 
-          <button type="submit" class="btn btn-secondary btn-lg">Load database</button>
+          <button type="submit" class="btn btn-secondary btn-lg" name="loadbtn">Load database</button>
 
         </form>
         </table>
