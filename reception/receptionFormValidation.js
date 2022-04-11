@@ -15,7 +15,7 @@ $("register-form").addEventListener("submit", (e) => {
 
 var name_valid = /^[A-Za-z]+$/;  //regex that makes sure data is valid
 var numberValidation = /^[0-9]+$/; // validation for only numric input
-var dateValidation = /^[0-9][0-9][\/][0-9][0-9][\/][0-9][0-9][0-9][0-9]/; //date validation
+var dateValidation =/^[0-9][0-9][0-9][0-9][-][0-9][0-9][-][0-9][0-9]/; //date validation
 
 function checkCustomerForm(){
     const fnameInput = $("name").value.trim();
@@ -247,7 +247,7 @@ $("job-form").addEventListener("submit", (e) => {
 
 function jobFormCheck(){
     const vehiclePlateInput = $("vehicle").value.trim();
-    const jobDescriptionInput = $("jobDes").value.trim();
+    const jobType = $("jobType").value.trim();
     const hoursInput = $("time").value.trim();
     const servicedate = $("servicedate").value.trim();
     
@@ -262,14 +262,14 @@ function jobFormCheck(){
         plateNumberValid = true; 
     }// end of validation 
 
-    //validation for job description
-    var jobDescriptionValid = false;
-    if(jobDescriptionInput==""){
-        $("jobDes-error").style.display = "inline";
-        $("jobDes-error").innerHTML = "No provided job description number.";
+    //validation for job type 
+    var jobTypeValid = false;
+    if(jobType==""){
+        $("jobtype-error").style.display = "inline";
+        $("jobtype-error").innerHTML = "No provided job type.";
     } else {
-        $("jobDes-error").style.display = "none"; 
-        jobDescriptionValid = true; 
+        $("jobtype-error").style.display = "none"; 
+        jobTypeValid = true; 
     }//end of validation
 
     //validation for estimate time
@@ -284,7 +284,7 @@ function jobFormCheck(){
     console.log(servicedate);
     //validation for date 
     var serviceDateValidation = false;
-    if(servicedate==""){
+    if(!servicedate.match(dateValidation)){
         $("date-error").style.display = "inline";
         $("date-error").innerHTML = "No provided date.";
         
@@ -297,12 +297,12 @@ function jobFormCheck(){
 
 
     function jobFormValid(){
-        if(plateNumberValid && jobDescriptionValid && hoursvalidation && serviceDateValidation){
+        if(plateNumberValid && jobTypeValid && hoursvalidation && serviceDateValidation){
 
             jobSubmission = true;
             document.getElementById("job-form").submit();
 
-        }else if(!(plateNumberValid && jobDescriptionValid &&hoursvalidation)){
+        }else{
             alert("Oops!...Something went wrong. Please try again.");
         }
     }

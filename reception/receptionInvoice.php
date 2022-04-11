@@ -15,9 +15,9 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
 <body>
     <button class="btn-success" id="download"> Download PDF</button>
     <form method="POST" action="">
-        <label for="find"><strong>Enter Car Registration Number:</strong></label>
+        <label for="find"><strong>Enter Job Number:</strong></label>
         <div>
-            <input placeholder="Enter Reference Code" name="refCode">
+            <input placeholder="Enter Job Number" name="regNo">
             <button name="select" class="btn btn-success">Select</button>
         </div>
     </form>
@@ -29,9 +29,6 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
 
             <div class="card-header">
                 Invoice
-                <strong>[Current Date]</strong>
-
-
             </div>
             <div class="card-body">
                 <div class="row mb-4">
@@ -46,11 +43,45 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
 
                     <div class="col-sm-6">
                         <div>
-                            <strong>[Customer Details]</strong>
-
+                            <?php
+                            if (isset($_POST['select'])) {
+                                $carReg = $_POST['regNo'];
+                                $sqlReg = "SELECT * FROM invoicereportcustomer WHERE jobNo = '$carReg'";
+                                $result = mysqli_query($connect, $sqlReg);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<div><strong>" . $row['fname'] . " " . $row['sname'] . "</strong></div>
+                                    <div>" . $row['address'] . "</div>
+                                    <div>" . $row['pcode'] . "</div>";
+                                }
+                            }
+                            ?>
                         </div>
-
-
+                    </div>
+                    <div class="col-sm-6">
+                        <?php
+                        if (isset($_POST['select'])) {
+                            $carReg = $_POST['regNo'];
+                            $sqlReg = "SELECT * FROM invoicereportcustomer WHERE jobNo = '$carReg'";
+                            $result = mysqli_query($connect, $sqlReg);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<br><div><strong>Dear: " . $row['fname'] . " " . $row['sname'] . "</strong></div>"
+                                    . "<br><h6 style='text-align:right'>Invoice No: " . $row['jobNo'] . "</h6>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div>
+                        <p><strong>Description of work:</strong></p>
+                        <?php
+                        if (isset($_POST['select'])) {
+                            $carReg = $_POST['regNo'];
+                            $sqlReg = "SELECT * FROM invoicetask WHERE jobID = '$carReg'";
+                            $result = mysqli_query($connect, $sqlReg);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo $row['taskDescription'] . "<br>";
+                            }
+                        }
+                        ?>
 
                     </div>
 
@@ -64,12 +95,42 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                     <th class="center">Qty</th>
                                     <th class="right">Total</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($_POST['select'])) {
+                                    $carReg = $_POST['regNo'];
+                                    $sqlReg = "SELECT * FROM invoicereportpartsused WHERE jobNo = '$carReg'";
+                                    $result = mysqli_query($connect, $sqlReg);
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr>
+                                                <td>" . $row['partName'] . "</td>
+                                                <td>" . $row['partCode'] . "</td>
+                                                <td>" . $row['price'] . "</td>
+                                                <td>" . $row['quantity'] . "</td>
+                                                <td>" . $row['total'] . "</td>
+                                            <tr>";
+                                    }
+                                }
+                                ?>
                                 <tr>
+
+
                                     <td><strong>Labour</strong></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <?php
+                                    if (isset($_POST['select'])) {
+                                        $carReg = $_POST['regNo'];
+                                        $sqlReg = "SELECT * FROM labourtask WHERE jobID = '$carReg'";
+                                        $result = mysqli_query($connect, $sqlReg);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "
+                                            <td></td>                                            
+                                                <td>" . $row['hourlyRate'] . "</td>
+                                                <td>" . $row['duration'] . "</td>
+                                                <td>" . $row['hourlyRate'] * $row['duration'] . "</td>";
+                                        }
+                                    }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -77,8 +138,15 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                     <td class="left">
                                         <strong>Total</strong>
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <?php
+                                    if (isset($_POST['select'])) {
+                                        $carReg = $_POST['regNo'];
+                                        $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
+                                        $sqlResult = mysqli_query($connect, $sql);
+                                        $row = $sqlResult->fetch_assoc();
+                                        echo "<td></td><td>" . $row['totalPrice'] . "</td>";
+                                    }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -86,8 +154,15 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                     <td class="left">
                                         <strong>VAT</strong>
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <?php
+                                    if (isset($_POST['select'])) {
+                                        $carReg = $_POST['regNo'];
+                                        $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
+                                        $sqlResult = mysqli_query($connect, $sql);
+                                        $row = $sqlResult->fetch_assoc();
+                                        echo "<td></td><td>" . number_format($row['totalPrice'] * 0.2, 2, '.', ' ') . "</td>";
+                                    }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -95,11 +170,16 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                     <td class="left">
                                         <strong>Grand Total</strong>
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <?php
+                                    if (isset($_POST['select'])) {
+                                        $carReg = $_POST['regNo'];
+                                        $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
+                                        $sqlResult = mysqli_query($connect, $sql);
+                                        $row = $sqlResult->fetch_assoc();
+                                        echo "<td></td><td>" . number_format(($row['totalPrice'] * 0.2) + $row['totalPrice'], 2, '.', ' ') . "</td>";
+                                    }
+                                    ?>
                                 </tr>
-                            </thead>
-                            <tbody>
                             </tbody>
                         </table>
                     </div>

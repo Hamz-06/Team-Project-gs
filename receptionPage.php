@@ -361,6 +361,7 @@
                                     <input type="text" class="form-control" id="vehicle" name="vehicle" placeholder="Registration Number">
                                     <small id="vehicle-error"></small>
                                 </div>
+                                <!-- job type  -->
                                 <div>
                                     <label for="jobType">Select Job Type:</label>
                                     <div class="input-group">
@@ -370,37 +371,9 @@
                                             <option value="MoT Service">MoT Service</option>
                                         </select>
                                     </div>
+                                    <small id="jobtype-error"></small>
                                 </div>
-                                <label for="jobDes">Job Description:</label>
-                                <input type="text" class="form-control" id="jobDes" name="jobDes" placeholder="Job Description">
-                                <small id="jobDes-error"></small>
-                                <div>
-                                    <form>
-                                        <h5>Task:</h5>
-                                        <table>
-                                            <tbody id="tbody"></tbody>
-                                        </table>
-                                        <br>
-                                        <button type="button" class="btn btn-success" onclick="addTask();">Add Task</button>
-                                    </form>
-                                    <script>
-                                        var taskNumber = 0;
-
-                                        function addTask() {
-                                            taskNumber++;
-                                            var html = "<tr>";
-                                            html += "<td>" + "</td>";
-                                            html += "<td><input type='text' name='addTask[]'></td><a href='#'onclick='deleteTask()'><i class='bi bi-trash text-danger'></i></a>";
-                                            html += "</tr>";
-                                            document.getElementById("tbody").insertRow().innerHTML = html;
-                                        }
-
-                                        function deleteTask() {
-                                            document.getElementById("tbody").deleteRow(0);
-                                        }
-                                    </script>
-                                </div>
-                                <br>
+                                <!-- estimated time  -->
                                 <div>
                                     <label for="time">Estimated Time:</label>
                                     <input type="text" class="form-control" id="time" name="time" placeholder="Enter Estimate Time">
@@ -498,230 +471,226 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="reception/receptionNewSale.php" id="">
+
+                    <form method="post" id="newSaleForm" action="reception/receptionNewSale.php" >
+
+                        <div class="modal-body row">
+                            <!--Parts details start-->
+
+                            <div class="row text-left justify-content-between m-0 mb-3">
+                                <h4 class="col-5 pl-0"><i class="bi bi-cart4"></i>Sale</h4>
+                                <button type="button" class="col-4 btn btn-primary"><a href="reception/receptionReceipt.php" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white">View Receipt</a></button>
+                            </div>
+                            
+
+                                <div>
+                                    <label for="reference">Reference Code:</label>
+                                    <input type="text" class="form-control" id="newSaleReference" name="reference" placeholder="Enter Reference Code">
+                                    <small id="newsalereference-error"></small>
+                                </div>
+                                <h5>Parts:</h5>
+                                <div>
+                                    <label for="partCode">Part Code:</label>
+                                    <input type="text" class="form-control" id="newSalePartCode" name="partCode" placeholder="Enter Partcode">
+                                    <small id="newsalepart-error"></small>
+                                </div>
+                                <div>
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" min="0" class="form-control" id="newSaleQuantity" name="quantity" placeholder="Enter Quantity">
+                                    <small id="newsalequantity-error"></small>
+                                </div>
+
+                                <div class="spacer"></div>
+                        
+
+                                <!-- //////////////////// -->
+                                <div class="modal-footer bg-dark">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                                        <button type="submit" class="btn btn-primary" id="newSaleSubmitbtn">Submit</button>
+                                        
+                                </div>
+                            
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End of Modal-->
+
+
+
+        <!--Modal start for new Parts-->
+        <div class="modal fade" id="newPartsModal" tabindex="-1" role="dialog" aria-labelledby="newParts" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title text-white" id="addParts">Add Parts</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="reception/receptionNewParts.php" id="parts-form">
                         <fieldset>
                             <div class="modal-body row">
                                 <!--Parts details start-->
-                                <form>
-                                    <!-- <div>
-                                        <h4><i class="bi bi-cart4"></i>Sale</h4>
-                                        <button type="button" class="col-2 btn btn-primary" data-toggle="modal" data-target="#newJobModal"><i class="bi bi-plus-circle"></i>New Job</button>
-                                    </div> -->
-                                    <div class="row text-left justify-content-between m-0 mb-3">
-                                        <h4 class="col-5 pl-0"><i class="bi bi-cart4"></i>Sale</h4>
-                                        <button type="button" class="col-4 btn btn-primary"><a href="reception/receptionReceipt.php" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-white">View Receipt</a></button>
-                                    </div>
-                                    <div>
-
-                                        <div>
-                                            <label for="reference">Reference Code:</label>
-                                            <input type="text" class="form-control" id="reference" name="reference" placeholder="Enter Reference Code">
-                                            <small id="reference-error"></small>
-                                        </div>
-                                        <h5>Parts:</h5>
-                                        <div>
-                                            <label for="partCode">Part Code:</label>
-                                            <input type="text" class="form-control" id="partCode" name="partCode" placeholder="Enter Partcode">
-                                            <small id="parts-error"></small>
-                                        </div>
-                                        <div>
-                                            <label for="quantity">Quantity:</label>
-                                            <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity">
-                                            <small id="quantity-error"></small>
-                                        </div>
-
-
-                                </form>
-
-                            </div>
-
-
-
-                </div>
-                <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-success" name="partsSubmit">
-                </div>
-                </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--End of Modal-->
-
-
-
-    <!--Modal start for new Parts-->
-    <div class="modal fade" id="newPartsModal" tabindex="-1" role="dialog" aria-labelledby="newParts" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-dark">
-                    <h5 class="modal-title text-white" id="addParts">Add Parts</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST" action="reception/receptionNewParts.php" id="parts-form">
-                    <fieldset>
-                        <div class="modal-body row">
-                            <!--Parts details start-->
-                            <h4>Parts <i class="fa fa-truck"></i></h4>
-                            <div>
-                                <label for="partCode">Part Code:</label>
-                                <input type="text" class="form-control" id="partCode" name="partCode" placeholder="Enter Partcode">
-                                <small id="parts-error"></small>
-                            </div>
-                            <div>
-                                <label for="partName">Part Name:</label>
-                                <input type="text" class="form-control" id="partName" name="partName" placeholder="Enter Part Name">
-                                <small id="partName-error"></small>
-                            </div>
-                            <div>
-                                <label for="manufac">Manufacturer:</label>
-                                <input type="text" class="form-control" id="partsManufac" name="partsManufac" placeholder="Enter Part Manufacturer">
-                                <small id="manufac-error"></small>
-                            </div>
-                            <div>
-                                <label for="vehicleParts">Vehicle Type:</label>
-                                <input type="text" class="form-control" id="vehicleParts" name="vehicleParts" placeholder="e.g Ford">
-                                <small id="vehicleParts-error"></small>
-                            </div>
-                            <div>
-                                <label for="years">Years:</label>
-                                <input type="text" class="form-control" id="yearsPart" name="yearParts" placeholder="Enter Year yyyy-yyyy">
-                                <small id="yearsParts-error"></small>
-                            </div>
-                            <div>
-                                <label for="price">Price:</label>
-                                <input type="text" class="form-control" id="priceParts" name="priceParts" placeholder="Enter Price e.g 10.99">
-                                <small id="priceParts-error"></small>
-                            </div>
-                            <div>
-                                <label for="stockLevel">Enter Initial Stock:</label>
-                                <input type="text" class="form-control" id="stockLevel" name="stockLevel" placeholder="Stock Level">
-                                <small id="stockLevel-error"></small>
-                            </div>
-                            <div>
-                                <label for="threshold">Enter the Threshold Level:</label>
-                                <input type="text" class="form-control" id="threshold" name="threshold" placeholder="Threshold Level">
-                                <small id="thresholdLevel-error"></small>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer bg-dark">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-success" name="partsSubmit">
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--End of Modal-->
-
-    <div class="modal fade" id="stockLedgerModal" tabindex="-1" role="dialog" aria-labelledby="stockLedger" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-dark">
-                    <h5 class="modal-title text-white">Stock Ledger</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body row">
-
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Delivered Parts</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Modify Threshold</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-editParts-tab" data-bs-toggle="pill" data-bs-target="#pills-editParts" type="button" role="tab" aria-controls="pills-editParts" aria-selected="false">Edit Parts</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-                            <form method="POST" action="reception/receptionStockLedger.php" id="stockledger-form">
+                                <h4>Parts <i class="fa fa-truck"></i></h4>
                                 <div>
                                     <label for="partCode">Part Code:</label>
                                     <input type="text" class="form-control" id="partCode" name="partCode" placeholder="Enter Partcode">
                                     <small id="parts-error"></small>
                                 </div>
-
                                 <div>
-                                    <label for="quantityParts">Quantity:</label>
-                                    <input type="text" class="form-control" id="quantityParts" name="quantityParts" placeholder="Enter Quantity">
-                                    <small id="quantityParts-error"></small>
+                                    <label for="partName">Part Name:</label>
+                                    <input type="text" class="form-control" id="partName" name="partName" placeholder="Enter Part Name">
+                                    <small id="partName-error"></small>
+                                </div>
+                                <div>
+                                    <label for="manufac">Manufacturer:</label>
+                                    <input type="text" class="form-control" id="partsManufac" name="partsManufac" placeholder="Enter Part Manufacturer">
+                                    <small id="manufac-error"></small>
+                                </div>
+                                <div>
+                                    <label for="vehicleParts">Vehicle Type:</label>
+                                    <input type="text" class="form-control" id="vehicleParts" name="vehicleParts" placeholder="e.g Ford">
+                                    <small id="vehicleParts-error"></small>
+                                </div>
+                                <div>
+                                    <label for="years">Years:</label>
+                                    <input type="text" class="form-control" id="yearsPart" name="yearParts" placeholder="Enter Year yyyy-yyyy">
+                                    <small id="yearsParts-error"></small>
+                                </div>
+                                <div>
+                                    <label for="price">Price:</label>
+                                    <input type="text" class="form-control" id="priceParts" name="priceParts" placeholder="Enter Price e.g 10.99">
+                                    <small id="priceParts-error"></small>
+                                </div>
+                                <div>
+                                    <label for="stockLevel">Enter Initial Stock:</label>
+                                    <input type="text" class="form-control" id="stockLevel" name="stockLevel" placeholder="Stock Level">
+                                    <small id="stockLevel-error"></small>
+                                </div>
+                                <div>
+                                    <label for="threshold">Enter the Threshold Level:</label>
+                                    <input type="text" class="form-control" id="threshold" name="threshold" placeholder="Threshold Level">
+                                    <small id="thresholdLevel-error"></small>
                                 </div>
 
-                                <br>
-                                <p>This feature is used to update the inventory.</p>
-
-                                <br>
-
-                                <input type="submit" class="btn btn-success col-4 offset-8" name="partsSubmit">
-                            </form>
-
-                        </div>
-
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <form method="POST" action="reception/updateThreshold.php" id="threshold-form">
-                                <fieldset>
-                                    <div>
-                                        <label for="partCode">Part Code:</label>
-                                        <input type="text" class="form-control" id="refpartCode" name="refpartCode" placeholder="Enter Partcode">
-                                        <small id="refpartCode-error"></small>
-                                    </div>
-                                    <div>
-                                        <label for="modifyThreshold">New Threshold Level:</label>
-                                        <input type="text" class="form-control" id="modifyThreshold" name="modifyThreshold" placeholder="Enter New Threshold Level">
-                                        <small id="modifyThreshold-error"></small>
-                                    </div>
-                                    <br>
-                                    <p>This feature is used to assign new threshold level.</p>
-                                    <br>
-                                    <input type="submit" class="btn btn-success col-4 offset-8" name="thresholdSubmit">
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="pills-editParts" role="tabpanel" aria-labelledby="pills-editParts-tab">
-
-                            <form method="POST" action="reception/updateParts.php">
-                                <fieldset>
-                                    <div>
-                                        <label for="partCode">Part Code:</label>
-                                        <input type="text" class="form-control" id="refpartCode" name="refpartCode" placeholder="Enter Partcode">
-                                        <small id="refpartCode-error"></small>
-                                    </div>
-
-
-                                    <div>
-                                        <label for="editPart">Modify Part:</label>
-                                        <input type="text" class="form-control" id="editPart" name="editPart" placeholder="Enter New Initial Price">
-                                        <small id="editPart-error"></small>
-                                    </div>
-                                    <br>
-                                    <p>This feature is used to modify parts e.g change price of specific parts.</p>
-                                    <br>
-
-                                    <input type="submit" class="btn btn-success col-4 offset-8" name="thresholdSubmit">
-                                </fieldset>
-                            </form>
-
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="modal-footer bg-dark">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" name="partsSubmit">
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+        <!--End of Modal-->
+
+        <div class="modal fade" id="stockLedgerModal" tabindex="-1" role="dialog" aria-labelledby="stockLedger" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title text-white">Stock Ledger</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body row">
+
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Delivered Parts</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Modify Threshold</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-editParts-tab" data-bs-toggle="pill" data-bs-target="#pills-editParts" type="button" role="tab" aria-controls="pills-editParts" aria-selected="false">Edit Parts</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                <form method="POST" action="reception/receptionStockLedger.php" id="stockledger-form">
+                                    <div>
+                                        <label for="partCode">Part Code:</label>
+                                        <input type="text" class="form-control" id="partCode" name="partCode" placeholder="Enter Partcode">
+                                        <small id="parts-error"></small>
+                                    </div>
+
+                                    <div>
+                                        <label for="quantityParts">Quantity:</label>
+                                        <input type="text" class="form-control" id="quantityParts" name="quantityParts" placeholder="Enter Quantity">
+                                        <small id="quantityParts-error"></small>
+                                    </div>
+
+                                    <br>
+                                    <p>This feature is used to update the inventory.</p>
+
+                                    <br>
+
+                                    <input type="submit" class="btn btn-success col-4 offset-8" name="partsSubmit">
+                                </form>
+
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <form method="POST" action="reception/updateThreshold.php" id="threshold-form">
+                                    <fieldset>
+                                        <div>
+                                            <label for="partCode">Part Code:</label>
+                                            <input type="text" class="form-control" id="refpartCode" name="refpartCode" placeholder="Enter Partcode">
+                                            <small id="refpartCode-error"></small>
+                                        </div>
+                                        <div>
+                                            <label for="modifyThreshold">New Threshold Level:</label>
+                                            <input type="text" class="form-control" id="modifyThreshold" name="modifyThreshold" placeholder="Enter New Threshold Level">
+                                            <small id="modifyThreshold-error"></small>
+                                        </div>
+                                        <br>
+                                        <p>This feature is used to assign new threshold level.</p>
+                                        <br>
+                                        <input type="submit" class="btn btn-success col-4 offset-8" name="thresholdSubmit">
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="pills-editParts" role="tabpanel" aria-labelledby="pills-editParts-tab">
+
+                                <form method="POST" action="reception/updateParts.php">
+                                    <fieldset>
+                                        <div>
+                                            <label for="partCode">Part Code:</label>
+                                            <input type="text" class="form-control" id="refpartCode" name="refpartCode" placeholder="Enter Partcode">
+                                            <small id="refpartCode-error"></small>
+                                        </div>
+
+
+                                        <div>
+                                            <label for="editPart">Modify Part:</label>
+                                            <input type="text" class="form-control" id="editPart" name="editPart" placeholder="Enter New Initial Price">
+                                            <small id="editPart-error"></small>
+                                        </div>
+                                        <br>
+                                        <p>This feature is used to modify parts e.g change price of specific parts.</p>
+                                        <br>
+
+                                        <input type="submit" class="btn btn-success col-4 offset-8" name="thresholdSubmit">
+                                    </fieldset>
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer bg-dark">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>
@@ -739,7 +708,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src="reception/receptionFormValidation.js"></script>
-<script src=" formValidation.js"> </script>
-<script src="getButtonIndex.js"> </script>
+
+
 
 </html>
