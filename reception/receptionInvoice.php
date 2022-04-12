@@ -48,10 +48,16 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                 $carReg = $_POST['regNo'];
                                 $sqlReg = "SELECT * FROM invoicereportcustomer WHERE jobNo = '$carReg'";
                                 $result = mysqli_query($connect, $sqlReg);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<div><strong>" . $row['fname'] . " " . $row['sname'] . "</strong></div>
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<div><strong>" . $row['fname'] . " " . $row['sname'] . "</strong></div>
                                     <div>" . $row['address'] . "</div>
                                     <div>" . $row['pcode'] . "</div>";
+                                    }
+                                } else {
+                                    echo "<script language='javascript'>
+                                        alert('Data Not Found.'); 
+                                        </script>";
                                 }
                             }
                             ?>
@@ -102,32 +108,36 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                     $carReg = $_POST['regNo'];
                                     $sqlReg = "SELECT * FROM invoicereportpartsused WHERE jobNo = '$carReg'";
                                     $result = mysqli_query($connect, $sqlReg);
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr>
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>
                                                 <td>" . $row['partName'] . "</td>
                                                 <td>" . $row['partCode'] . "</td>
                                                 <td>" . $row['price'] . "</td>
                                                 <td>" . $row['quantity'] . "</td>
                                                 <td>" . $row['total'] . "</td>
                                             <tr>";
+                                        }
                                     }
                                 }
                                 ?>
                                 <tr>
-
-
                                     <td><strong>Labour</strong></td>
                                     <?php
                                     if (isset($_POST['select'])) {
                                         $carReg = $_POST['regNo'];
                                         $sqlReg = "SELECT * FROM labourtask WHERE jobID = '$carReg'";
                                         $result = mysqli_query($connect, $sqlReg);
-                                        while ($row = mysqli_fetch_assoc($result)) {
+                                        if (mysqli_num_rows($result) > 0) {
+                                            $duration = "SELECT SUM(duration) AS duration FROM labourtask WHERE jobID = '$carReg'";
+                                            $durationResult = mysqli_query($connect, $duration);
+                                            $durationRow = $durationResult->fetch_assoc();
+                                            $row = $result->fetch_assoc();
                                             echo "
                                             <td></td>                                            
                                                 <td>" . $row['hourlyRate'] . "</td>
-                                                <td>" . $row['duration'] . "</td>
-                                                <td>" . $row['hourlyRate'] * $row['duration'] . "</td>";
+                                                <td>" . $durationRow['duration'] . "</td>
+                                                <td>" . $row['hourlyRate'] * $durationRow['duration'] . "</td>";
                                         }
                                     }
                                     ?>
@@ -143,8 +153,10 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                         $carReg = $_POST['regNo'];
                                         $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
                                         $sqlResult = mysqli_query($connect, $sql);
-                                        $row = $sqlResult->fetch_assoc();
-                                        echo "<td></td><td>" . $row['totalPrice'] . "</td>";
+                                        if (mysqli_num_rows($sqlResult) > 0) {
+                                            $row = $sqlResult->fetch_assoc();
+                                            echo "<td></td><td>" . $row['totalPrice'] . "</td>";
+                                        }
                                     }
                                     ?>
                                 </tr>
@@ -159,8 +171,10 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                         $carReg = $_POST['regNo'];
                                         $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
                                         $sqlResult = mysqli_query($connect, $sql);
-                                        $row = $sqlResult->fetch_assoc();
-                                        echo "<td></td><td>" . number_format($row['totalPrice'] * 0.2, 2, '.', ' ') . "</td>";
+                                        if (mysqli_num_rows($sqlResult) > 0) {
+                                            $row = $sqlResult->fetch_assoc();
+                                            echo "<td></td><td>" . number_format($row['totalPrice'] * 0.2, 2, '.', ' ') . "</td>";
+                                        }
                                     }
                                     ?>
                                 </tr>
@@ -175,8 +189,10 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                                         $carReg = $_POST['regNo'];
                                         $sql = "SELECT * FROM job_garits WHERE jobNo = '$carReg'";
                                         $sqlResult = mysqli_query($connect, $sql);
-                                        $row = $sqlResult->fetch_assoc();
-                                        echo "<td></td><td>" . number_format(($row['totalPrice'] * 0.2) + $row['totalPrice'], 2, '.', ' ') . "</td>";
+                                        if (mysqli_num_rows($sqlResult) > 0) {
+                                            $row = $sqlResult->fetch_assoc();
+                                            echo "<td></td><td>" . number_format(($row['totalPrice'] * 0.2) + $row['totalPrice'], 2, '.', ' ') . "</td>";
+                                        }
                                     }
                                     ?>
                                 </tr>

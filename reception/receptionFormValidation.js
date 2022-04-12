@@ -139,7 +139,7 @@ $("vehicle-form").addEventListener("submit", (e) => {
 
 function vehicleFormCheck(){
     const customerCardNumberInput = $("customerCardNumber").value.trim();
-    const registrationInput = $("regNo").value.trim();
+    const registrationInput = $("regno").value.trim();
     const manfacturerInput = $("make").value.trim();
     const modelInput = $("model").value.trim();
     const yearInput = $("year").value.trim();
@@ -160,13 +160,11 @@ function vehicleFormCheck(){
 
     //regnumber validation
     var regNoValid = false;
+    console.log(registrationInput);
     if(registrationInput==""){
         $("registration-error").style.display = "inline";
         $("registration-error").innerHTML = "No provided registration number.";
-    }else if (!registrationInput.match(numberValidation)) {  
-        $("registration-error").style.display = "inline";
-        $("registration-error").innerHTML = "Incorrect Input.";
-    } else {
+    }else {
         $("registration-error").style.display = "none"; 
         regNoValid = true; 
     }// end of validation 

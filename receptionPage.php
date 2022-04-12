@@ -231,22 +231,22 @@
                                 <h4><i class="bi bi-person"></i>Customer</h4>
                                 <div class="spacer">
                                     <label for="name">Name:</label>
-                                    <input type="text" class="form-control" id="name" name="name" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="name" name="name">
                                     <small id="name-error"></small>
                                 </div>
                                 <div class="spacer">
                                     <label for="sname">Surname:</label>
-                                    <input type="text" class="form-control" id="sname" name="sname" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="sname" name="sname">
                                     <small id="sname-error"></small>
                                 </div>
                                 <div class="spacer">
                                     <label for="address">Address:</label>
-                                    <input type="text" class="form-control" id="address" name="address" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="address" name="address">
                                     <small id="address-error"></small>
                                 </div>
                                 <div class="spacer">
                                     <label for="pcode">Postcode:</label>
-                                    <input type="text" class="form-control" id="pcode" name="pcode" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="pcode" name="pcode">
                                     <small id="pcode-error"></small>
                                 </div>
                                 <div class="spacer">
@@ -300,32 +300,32 @@
                                 <h4><i class='fas fa-car-side'></i>Vehicle</h4>
                                 <div>
                                     <label for="cardNumber">Customer Card Number:</label>
-                                    <input type="text" class="form-control" id="customerCardNumber" name="customerCardNumber" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="customerCardNumber" name="customerCardNumber">
                                     <small id="customerCardNumber-error"></small>
                                 </div>
                                 <div>
                                     <label for="registrationNumber">Registration Number:</label>
-                                    <input type="text" class="form-control" id="regNo" name="regNo" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="regno" name="regNo" style="text-transform: uppercase">
                                     <small id="registration-error"></small>
                                 </div>
                                 <div>
                                     <label for="manufacture">Manufacturer:</label>
-                                    <input type="text" class="form-control" id="make" name="make" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="make" name="make" >
                                     <small id="make-error"></small>
                                 </div>
                                 <div>
                                     <label for="model">Model:</label>
-                                    <input type="text" class="form-control" id="model" name="model" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="model" name="model" >
                                     <small id="model-error"></small>
                                 </div>
                                 <div>
                                     <label for="year">Year:</label>
-                                    <input type="text" class="form-control" id="year" name="year" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="year" name="year" >
                                     <small id="year-error"></small>
                                 </div>
                                 <div>
                                     <label for="colour">Colour:</label>
-                                    <input type="text" class="form-control" id="colour" name="colour" style="text-transform: uppercase">
+                                    <input type="text" class="form-control" id="colour" name="colour">
                                     <small id="colour-error"></small>
                                 </div>
                                 <div>
