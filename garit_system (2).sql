@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2022 at 02:09 AM
+-- Generation Time: Apr 13, 2022 at 02:18 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.27
 
@@ -34,15 +34,6 @@ CREATE TABLE `completed_tasks` (
   `duration` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `completed_tasks`
---
-
-INSERT INTO `completed_tasks` (`jobID`, `taskNo`, `empID`, `duration`) VALUES
-(2, 1, 6, '2.00'),
-(2, 2, 6, '3.00'),
-(3, 1, 6, '3.00');
-
 -- --------------------------------------------------------
 
 --
@@ -70,10 +61,8 @@ CREATE TABLE `customer_garits` (
 --
 
 INSERT INTO `customer_garits` (`cardNo`, `fname`, `sname`, `dateIssued`, `address`, `pcode`, `telephone`, `faxNo`, `invoiceNo`, `paid`, `discount`, `customerType`, `payLate`) VALUES
-(4, 'John', 'Doherty', '2022-04-08 14:46:21', 'Miscellaneous House,  Unknown Street,  Whichville,  Nowhereshire,', 'MT1 2UP', '07070070707', '01010100101', NULL, NULL, '', 'Casual', ''),
-(5, 'William', 'Gates', '2022-04-08 14:47:45', 'World Domination House,  Enormous Street,  Richville', 'World Domination House,  Enormous Street,  Richville', '0666666666', '02074773333', NULL, NULL, '', 'Account Holder', ''),
-(6, 'asda', 'asda', '2022-04-11 22:44:28', 'asda', 'asda', '1212121', '12121', NULL, NULL, NULL, 'Casual', NULL),
-(7, 'sadaafef', 'fefefewff', '2022-04-11 23:52:48', 'wefwefewf', 'fwff', '1314', '424', NULL, NULL, NULL, 'Casual', NULL);
+(1, 'Jack', 'Blake', '2022-04-12 23:37:40', '12 eastern avenue, Barking', 'KS12 764', '1232232434', '', NULL, NULL, NULL, 'Casual', NULL),
+(2, 'James', 'Charles', '2022-04-12 23:41:10', '12 Polo st, Luton', 'f112 76', '342483943824', '', NULL, NULL, NULL, 'Account Holder', NULL);
 
 -- --------------------------------------------------------
 
@@ -85,15 +74,6 @@ CREATE TABLE `expected_tasks` (
   `jobID` int(10) DEFAULT NULL,
   `taskNo` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `expected_tasks`
---
-
-INSERT INTO `expected_tasks` (`jobID`, `taskNo`) VALUES
-(2, 1),
-(2, 2),
-(3, 1);
 
 -- --------------------------------------------------------
 
@@ -161,14 +141,6 @@ CREATE TABLE `job_garits` (
   `totalPrice` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `job_garits`
---
-
-INSERT INTO `job_garits` (`jobNo`, `jobType`, `mechanicID`, `estimateTime`, `jobStatus`, `carRegistration`, `dateCaptured`, `serviceDate`, `totalPrice`) VALUES
-(1, 'Annual Service', NULL, '12', NULL, 'AA69 CPG', '2022-04-11 21:59:19', '2022-04-11', NULL),
-(2, 'Vehicle Repair', NULL, '12', NULL, 'asda', '2022-04-11 23:53:49', '2022-04-09', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -182,6 +154,21 @@ CREATE TABLE `labourtask` (
 ,`empID` int(10)
 ,`duration` decimal(5,2)
 ,`hourlyRate` float
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `motreminder`
+-- (See below for the actual view)
+--
+CREATE TABLE `motreminder` (
+`fname` varchar(255)
+,`sname` varchar(255)
+,`address` varchar(255)
+,`pcode` varchar(255)
+,`registrationNo` varchar(255)
+,`motdate` date
 );
 
 -- --------------------------------------------------------
@@ -216,14 +203,6 @@ CREATE TABLE `parts_garits` (
   `threshold` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `parts_garits`
---
-
-INSERT INTO `parts_garits` (`partCode`, `partName`, `manufacture`, `vechileType`, `years`, `price`, `stockLevel`, `dateReported`, `threshold`) VALUES
-('as-cv', 'pipe', 'adsd', 'ford', '2003 ', '6.00', 60, '2022-04-11 23:37:11', 50),
-('qwe', 'pipe', 'adsd', 'ford', '2003 ', '12.00', 40, '2022-04-12 00:08:40', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -235,18 +214,6 @@ CREATE TABLE `part_used` (
   `partCode` varchar(255) DEFAULT NULL,
   `quantity` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `part_used`
---
-
-INSERT INTO `part_used` (`jobID`, `partCode`, `quantity`) VALUES
-(3, 'XQC-123', 4),
-(3, 'YTGH-UY8', 2),
-(5, 'XQC-123', 2),
-(5, 'YTGH-UY8', 1),
-(2, 'XQC-123', 4),
-(2, 'YTGH-UY8', 2);
 
 -- --------------------------------------------------------
 
@@ -261,15 +228,6 @@ CREATE TABLE `salehistory_garits` (
   `dateAquired` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `salehistory_garits`
---
-
-INSERT INTO `salehistory_garits` (`saleId`, `receiptReference`, `total`, `dateAquired`) VALUES
-(25, 'Chelsea', '251.96', '2022-04-08 16:18:45'),
-(26, 'Chelsea', '671.90', '2022-04-08 17:44:33'),
-(27, 'Chelsea', '731.96', '2022-04-09 13:24:14');
-
 -- --------------------------------------------------------
 
 --
@@ -283,17 +241,6 @@ CREATE TABLE `sale_garits` (
   `partNo` varchar(255) NOT NULL,
   `total` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sale_garits`
---
-
-INSERT INTO `sale_garits` (`saleId`, `receiptReference`, `quantity`, `partNo`, `total`) VALUES
-(31, 'Chelsea', 2, 'YTGH-UY8', '139.98'),
-(32, 'Chelsea', 2, 'YTGH-UY8', '139.98'),
-(33, 'Chelsea', 2, 'YTGH-UY8', '139.98'),
-(34, 'Chelsea', 4, 'RTQR', '279.96'),
-(35, 'Chelsea', 2, 'YTGH-UY8', '139.98');
 
 -- --------------------------------------------------------
 
@@ -311,25 +258,6 @@ CREATE TABLE `Staff` (
   `hourlyRate` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `Staff`
---
-
-INSERT INTO `Staff` (`StaffID`, `Fname`, `Sname`, `Roles`, `Username`, `Password`, `hourlyRate`) VALUES
-(46, 'a', 'qasda', 'Receptionist', 'a', 'as', 0),
-(47, 'asda', 'aa', 'Mechanic', 'aaaaa', 'asqawaaa', 0),
-(48, 'asda', 'sss', 'Franchisee', 'sss', 'ss', 0),
-(49, 'asdaaa', 'aaaasdsa', 'Franchisee', 'asas', 'asadas', 0),
-(50, 'Hell', 'Is', 'Mechanic', 'hot', 'pk', 0),
-(51, 'asda', 'asda', 'Mechanic', 'asda', 'asda', 6),
-(52, 'one', 'all', 'Mechanic', 'are', 'we', 0),
-(53, 'we', 'are', 'Mechanic', 'thw', 'as', 31),
-(54, 'habi', 'bi', 'Mechanic', 'dubai', 'soon', 123),
-(55, 'fsaf', 'afaf', 'Mechanic', 'fafafa', 'afaf', 12.45),
-(56, 'ripa', 'ripa', 'Foreperson', 'asadaaas', 'j', 100),
-(57, 'xxxx', 'xxxx', 'Mechanic', 'xxxxxxx', 'xxxxxx', 105),
-(58, 'dfdfefefef', 'efefefef', 'Mechanic', 'eef', 'fefef', 105);
-
 -- --------------------------------------------------------
 
 --
@@ -343,20 +271,6 @@ CREATE TABLE `stockledger_garits` (
   `code` varchar(255) DEFAULT NULL,
   `dateReported` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `stockledger_garits`
---
-
-INSERT INTO `stockledger_garits` (`stockID`, `used`, `delivery`, `code`, `dateReported`) VALUES
-(1, 0, 60, 'YTGH-UY8', '2022-04-08 18:06:20'),
-(2, 0, 5, 'XQC-123', '2022-04-08 18:06:36'),
-(14, 0, 15, 'YTGH-UY8', '2022-05-08 19:20:57'),
-(15, 0, 5, 'YTGH-UY8', '2022-07-08 19:22:37'),
-(17, 0, 0, '', '2022-04-10 11:17:08'),
-(18, 0, 0, 'RTQR', '2022-04-10 11:26:22'),
-(NULL, NULL, NULL, 'as-cv', '2022-04-11 23:34:31'),
-(NULL, 0, 0, 'qwe', '2022-04-12 00:08:40');
 
 -- --------------------------------------------------------
 
@@ -393,14 +307,6 @@ CREATE TABLE `task_garits` (
   `timeDuration` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `task_garits`
---
-
-INSERT INTO `task_garits` (`taskNo`, `taskDescription`, `timeDuration`) VALUES
-(1, 'Comprehensive Service', '2.00'),
-(2, 'Bodywork/respray', '3.00');
-
 -- --------------------------------------------------------
 
 --
@@ -413,15 +319,17 @@ CREATE TABLE `vehicle_garits` (
   `model` varchar(255) NOT NULL,
   `year` varchar(255) DEFAULT NULL,
   `colour` varchar(255) NOT NULL,
-  `customerCardNo` int(10) DEFAULT NULL
+  `customerCardNo` int(10) DEFAULT NULL,
+  `motdate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `vehicle_garits`
 --
 
-INSERT INTO `vehicle_garits` (`registrationNo`, `make`, `model`, `year`, `colour`, `customerCardNo`) VALUES
-('asda', 'sad', 'wqewe', '213', 'red', 7);
+INSERT INTO `vehicle_garits` (`registrationNo`, `make`, `model`, `year`, `colour`, `customerCardNo`, `motdate`) VALUES
+('asd1254', 'bmw', 'smooth', '2012', 'pink', 2, '2022-04-29'),
+('mj112', 'rollce', 'royce', '2018', 'red', 1, '2022-04-18');
 
 -- --------------------------------------------------------
 
@@ -458,6 +366,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `labourtask`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `labourtask`  AS SELECT `T1`.`carRegistration` AS `carRegistration`, `T2`.`jobID` AS `jobID`, `T3`.`taskDescription` AS `taskDescription`, `T2`.`empID` AS `empID`, `T2`.`duration` AS `duration`, `T4`.`hourlyRate` AS `hourlyRate` FROM (((`job_garits` `T1` join `completed_tasks` `T2` on(`T1`.`jobNo` = `T2`.`jobID`)) join `task_garits` `T3` on(`T2`.`taskNo` = `T3`.`taskNo`)) join `staff` `T4` on(`T2`.`empID` = `T4`.`StaffID`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `motreminder`
+--
+DROP TABLE IF EXISTS `motreminder`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `motreminder`  AS SELECT `T1`.`fname` AS `fname`, `T1`.`sname` AS `sname`, `T1`.`address` AS `address`, `T1`.`pcode` AS `pcode`, `T2`.`registrationNo` AS `registrationNo`, `T2`.`motdate` AS `motdate` FROM (`customer_garits` `T1` join `vehicle_garits` `T2` on(`T1`.`cardNo` = `T2`.`customerCardNo`)) ;
 
 -- --------------------------------------------------------
 
@@ -514,19 +431,19 @@ ALTER TABLE `vehicle_garits`
 -- AUTO_INCREMENT for table `customer_garits`
 --
 ALTER TABLE `customer_garits`
-  MODIFY `cardNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `cardNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `job_garits`
 --
 ALTER TABLE `job_garits`
-  MODIFY `jobNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `jobNo` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Staff`
 --
 ALTER TABLE `Staff`
-  MODIFY `StaffID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `StaffID` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
