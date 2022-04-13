@@ -144,7 +144,7 @@ function vehicleFormCheck(){
     const modelInput = $("model").value.trim();
     const yearInput = $("year").value.trim();
     const colourInput = $("colour").value.trim();
-
+   
     //validation for customer card number
     var customerNoValid = false;
     if(customerCardNumberInput==""){
@@ -214,13 +214,14 @@ function vehicleFormCheck(){
         colourValid = true; 
     }
 
+
     function vehicleFormValid(){
-        if(customerNoValid && manfacturerValidation && modelValidation && yearValidation &&colourValid &&regNoValid ){
+        if(customerNoValid && manfacturerValidation && modelValidation && yearValidation &&colourValid &&regNoValid){
 
             vehicleSubmission = true;
             document.getElementById("vehicle-form").submit();
 
-        }else if(!(customerNoValid && manfacturerValidation && modelValidation && yearValidation)){
+        }else{
             alert("Oops!...Something went wrong. Please try again.");
         }
     }

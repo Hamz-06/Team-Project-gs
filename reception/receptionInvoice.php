@@ -1,4 +1,6 @@
+
 <?php
+//connect 
 $connect = mysqli_connect("localhost", "root", "", "garit_system");
 ?>
 <!DOCTYPE html>
@@ -44,10 +46,12 @@ $connect = mysqli_connect("localhost", "root", "", "garit_system");
                     <div class="col-sm-6">
                         <div>
                             <?php
+                            //get data
                             if (isset($_POST['select'])) {
                                 $carReg = $_POST['regNo'];
                                 $sqlReg = "SELECT * FROM invoicereportcustomer WHERE jobNo = '$carReg'";
                                 $result = mysqli_query($connect, $sqlReg);
+                                //if value exists display using echos
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<div><strong>" . $row['fname'] . " " . $row['sname'] . "</strong></div>

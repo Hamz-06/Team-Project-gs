@@ -11,6 +11,7 @@ if ($db->connect_errno) {
     $model = $_POST['model'];
     $year = $_POST['year'];
     $colour = $_POST['colour'];
+    $motdate = $_POST['motdate'];
 
     //check for duplicates
     $query_registration = "SELECT registrationNo FROM vehicle_garits WHERE registrationNo = '$registrationNumber'";
@@ -31,8 +32,8 @@ if ($db->connect_errno) {
             $row = $result_card->fetch_assoc();
             $custCardNo = $row["cardNo"];
 
-            mysqli_query($db, "INSERT INTO vehicle_garits (registrationNo, make,  model, year,colour, customerCardNo) 
-                VALUES ('$registrationNumber','$manufacture','$model','$year','$colour','$custCardNo')")
+            mysqli_query($db, "INSERT INTO vehicle_garits (registrationNo, make,  model, year,colour, customerCardNo, motdate) 
+                VALUES ('$registrationNumber','$manufacture','$model','$year','$colour','$custCardNo','$motdate')")
                 or die(mysqli_error($db));
 
             echo "<script language='javascript'>
